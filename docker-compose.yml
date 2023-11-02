@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  rest-service:
+    image: if3110-2023-02-36-rest-service:latest
+    ports:
+      - 5000:5000
+    env_file: .env
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/rest'
+  
+  mysql:
+    image: 'mysql'
+    ports:
+      - "5307:3306"
+    env_file: .env
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    environment:
+      - PMA_HOST=mysql
+    ports:
+      - 5051:80
+    depends_on:
+      - mysql
