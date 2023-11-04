@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  username    String
+  password    String
+  category    Category
+  isMembership Boolean   @default(false)
+  saldo       Float     @default(0.0)
+  histories   History[]
+  promo userPromo[]
+}
+
+model History {
+  id Int @id @default(autoincrement())
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+  jenis TypeTransaction
+  nominal Int
+}
+
+model Promo{
+  id Int @id @default(autoincrement())
+  nama_promo String 
+  percentage Float
+  promo userPromo[]
+}
+
+model userPromo{
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [user_id], references: [id])
+  promo Promo @relation(fields: [promo_id], references: [id])
+  user_id Int 
+  promo_id Int 
+}
+
+enum Category {
+  ADMIN
+  USER
+  MODERATOR
+}
+
+enum TypeTransaction{
+  TOPUP
+  BAYAR
+  Transfer_in
+  Transfer_out
+}
