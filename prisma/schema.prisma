@@ -17,7 +17,7 @@ model User {
   password    String
   saldo       Float     @default(0.0)
   histories   History[]
-  foto_file String
+  foto_file String @default("default.jpg")
 }
 
 model History {
@@ -27,7 +27,18 @@ model History {
   alamat_tujuan String
   nama_penerima String
   rating Int @default(0)
+  history_detail HistoryDetail[]
 }
+
+model HistoryDetail {
+  id           Int      @id @default(autoincrement())
+  history_id   Int
+  history      History  @relation(fields: [history_id], references: [id])
+  product_name String
+  quantity     Int
+}
+
+
 
 
 
