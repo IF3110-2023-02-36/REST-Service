@@ -1,7 +1,11 @@
 import express, {Express, Request, Response} from "express";
+import { HistoryRouter } from "./history/history.router";
+
 const app = express();
 const port = 5000;
 
+
+app.use('/history', HistoryRouter);
 app.get("/", (req, res) => {
     res.send("test get home");
 })
