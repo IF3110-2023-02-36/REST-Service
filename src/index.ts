@@ -15,7 +15,7 @@ app.get("/test", (req, res) => {
 })
 
 app.post("/test", (req, res) => {
-    res.send("test post ganti gak");
+    res.send("ganti dong");
 })
 
 app.listen(port, () =>{
