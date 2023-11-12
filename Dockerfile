@@ -1,14 +1,12 @@
-FROM node:16-alpine
+FROM node:21-alpine
 
 WORKDIR /rest
 
 COPY package*.json ./
 RUN rm -rf node_modules
-RUN npm install --verbose
+RUN npm install --ignore-scripts --verbose 
 COPY . .
 
-RUN npx prisma generate
 
 EXPOSE 5000
-CMD ["npm", "run", "dev"]
-
+CMD ["./scripts/entrypoint.sh"]
