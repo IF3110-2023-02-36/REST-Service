@@ -1,5 +1,5 @@
 import express, {Express, Request, Response} from "express";
-import { HistoryRouter } from "./history/history.router";
+import { HistoryRouter } from "./handler/history/history.router";
 
 const app = express();
 const port = 5000;

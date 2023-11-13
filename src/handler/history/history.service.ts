@@ -1,20 +1,6 @@
-import {db} from "../utils/db.server"
-
-
-type History = {
-    id: number,
-    user_id : number,
-    alamat_tujuan: string,
-    nama_penerima: string,
-    rating: number,
-}
-
-type HistoryDetail = {
-    id: number,
-    history_id : number,
-    product_name: string,
-    quantity: number,
-}
+import { History } from "../../interfaces/History";
+import { HistoryDetail } from "../../interfaces/HistoryDetail";
+import {db} from "../../utils/db.server"
 
 export const getHistory = async (): Promise<History[]> => {
     const user_id = 2; //ini buat temp aja karena auth belom dibuat
