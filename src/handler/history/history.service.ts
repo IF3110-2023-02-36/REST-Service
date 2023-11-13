@@ -2,7 +2,7 @@ import { History } from "../../interfaces/History";
 import { HistoryDetail } from "../../interfaces/HistoryDetail";
 import {db} from "../../utils/db.server"
 
-export const getHistory = async (): Promise<History[]> => {
+export async function getHistory () : Promise<History[]> {
     const user_id = 2; //ini buat temp aja karena auth belom dibuat
     return db.history.findMany({
         where:{
@@ -18,7 +18,7 @@ export const getHistory = async (): Promise<History[]> => {
     })
 }
 
-export const getHistoryDetail = async (historyId: number): Promise<HistoryDetail[]> => {
+export async function getHistoryDetail (historyId: number) : Promise<HistoryDetail[]> {
     return db.historyDetail.findMany({
         where:{
             history_id: historyId
