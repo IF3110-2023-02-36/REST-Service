@@ -24,7 +24,7 @@ export async function checkEmail(email : string) {
 }
 
 export async function register(user : User) {
-    let responseString = "success";
+    let responseString = "";
     try {
         const result : User = await db.user.create({
             data : {
@@ -34,6 +34,7 @@ export async function register(user : User) {
                 password : user.password,
             }
         })
+        responseString = "success";
     }catch (err) {
         const usernameAvailable = await checkUsername(user.username);
         const emailAvailable = await checkEmail(user.email);
@@ -48,7 +49,7 @@ export async function register(user : User) {
     return responseString;
 }
 
-export async function validateLogin(username : string, password : string) {
+export async function login(username : string, password : string) {
     const result : queryResult = await db.user.findFirst({
         where: {
             username : username

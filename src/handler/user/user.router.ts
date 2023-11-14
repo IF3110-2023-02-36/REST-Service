@@ -6,18 +6,18 @@ import * as UserServices from './user.service'
 
 export const UserRouter = express.Router()
 
-UserRouter.post('/checkUsername', async (request: Request, response: Response) => {
+UserRouter.post('/check-username', async (request: Request, response: Response) => {
     try {
-        const responseString= await UserServices.checkUsername(request.body.username);
+        const responseString = await UserServices.checkUsername(request.body.username);
         return response.status(200).json(responseString);
     } catch (error: any) {
         return response.status(500).json(error.message);
     }
 })
 
-UserRouter.post('/checkEmail', async (request: Request, response: Response) => {
+UserRouter.post('/check-email', async (request: Request, response: Response) => {
     try {
-        const responseString= await UserServices.checkEmail(request.body.email);
+        const responseString = await UserServices.checkEmail(request.body.email);
         return response.status(200).json(responseString);
     } catch (error: any) {
         return response.status(500).json(error.message);
@@ -34,16 +34,16 @@ UserRouter.post('/register', async (request: Request, response: Response) => {
             password : request.body.password,
             saldo : 0,
         };
-        const responseString= await UserServices.register(user);
+        const responseString = await UserServices.register(user);
         return response.status(200).json(responseString);
     } catch (error: any) {
         return response.status(500).json(error.message);
     }
 })
 
-UserRouter.post('/validateLogin', async (request: Request, response: Response) => {
+UserRouter.post('/login', async (request: Request, response: Response) => {
     try {
-        const responseString= await UserServices.validateLogin(request.body.username, request.body.password);
+        const responseString = await UserServices.login(request.body.username, request.body.password);
         return response.status(200).json(responseString);
     } catch (error: any) {
         return response.status(500).json(error.message);
