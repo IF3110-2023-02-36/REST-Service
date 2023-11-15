@@ -4,6 +4,7 @@ import {db} from "../../utils/db.server"
 type queryResult = User | null;
 
 export async function checkUsername(username : string) {
+    // TODO : SQL is using case insensitive comparison
     const result : queryResult = await db.user.findFirst({
         where: {
             username : username
@@ -25,6 +26,19 @@ export async function checkEmail(email : string) {
 
 export async function register(user : User) {
     let responseString = "";
+    const usernameAvailable = await checkUsername(user.username);
+    const emailAvailable = await checkEmail(user.email);
+    
+    if(usernameAvailable === "exist") {
+        responseString = "username already exist";
+    }else if(emailAvailable === "exist") {
+        responseString = "email already exist";
+    }
+    
+    if(responseString !== "") {
+        return responseString;   
+    }
+
     try {
         const result : User = await db.user.create({
             data : {
@@ -36,15 +50,7 @@ export async function register(user : User) {
         })
         responseString = "success";
     }catch (err) {
-        const usernameAvailable = await checkUsername(user.username);
-        const emailAvailable = await checkEmail(user.email);
-        if(usernameAvailable === "exist") {
-            responseString = "username already exist";
-        }else if(emailAvailable === "exist") {
-            responseString = "email already exist";
-        }else {
-            responseString = "failed";
-        }
+        responseString = "failed";
     }
     return responseString;
 }
