@@ -64,3 +64,37 @@ export async function login(username : string, password : string) {
     const responseString = (password === result?.password) ? "success" : "failed";
     return responseString;
 }
+
+export async function getBalance(username : string) {
+    console.log(username);
+    const balance = await db.user.findFirst({
+        where : {
+            username : username
+        }, 
+        select : {
+            saldo : true
+        }
+    });
+    console.log("balance", balance);
+    return balance?.saldo;
+}
+
+export async function topup(username : string, topupBalance : number) {
+    let responseString = "";
+    try{
+        const result : queryResult = await db.user.update({
+            where: {
+                username : username
+            },
+            data: {
+                saldo : {
+                    increment : topupBalance
+                }
+            }
+        });
+        responseString = "success";
+    }catch (err) {
+        responseString = "failed";
+    }
+    return responseString;
+}

@@ -49,3 +49,22 @@ UserRouter.post('/login', async (request: Request, response: Response) => {
         return response.status(500).json(error.message);
     }
 })
+
+UserRouter.get('/balance/:username', async (request: Request, response: Response) => {
+    try {
+        const responseString = await UserServices.getBalance(request.params.username);
+        console.log(responseString);
+        return response.status(200).json(responseString);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
+
+UserRouter.post('/balance', async (request: Request, response: Response) => {
+    try {
+        const responseString = await UserServices.topup(request.body.username, request.body.topupBalance);
+        return response.status(200).json(responseString);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
