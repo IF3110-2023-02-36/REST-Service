@@ -40,3 +40,14 @@ OrderRouter.get('/order-courier/:id', async (request: Request, response: Respons
         return response.status(500).json(error.message);
     }
 })
+
+OrderRouter.put('/pick-order', async (request: Request, response: Response) => {
+    try {
+        const orderId : number = request.body.orderId;
+        const username : string = request.body.username;
+        const res = await OrderServices.pickOrder(orderId, username);
+        return response.status(200).json(res);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
