@@ -27,7 +27,9 @@ model History {
   user_id Int
   user User @relation(fields: [user_id], references: [id])
   alamat_tujuan String
+  id_penerima Int
   nama_penerima String
+  biaya_pengiriman Int
   rating Int @default(0)
   history_detail HistoryDetail[]
 }
@@ -38,6 +40,7 @@ model HistoryDetail {
   history      History  @relation(fields: [history_id], references: [id])
   product_name String
   quantity     Int
+  price Int
 }
 
 

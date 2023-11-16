@@ -13,7 +13,9 @@ export async function getHistory (username : string) : Promise<History[]> {
             id: true,
             user_id: true,
             alamat_tujuan: true,
+            id_penerima: true,
             nama_penerima: true,
+            biaya_pengiriman: true,
             rating: true
         }
     })
@@ -28,7 +30,31 @@ export async function getHistoryDetail (historyId: number) : Promise<HistoryDeta
             id: true,
             history_id: true,
             product_name: true,
-            quantity: true
+            quantity: true,
+            price: true
         }
     })
+}
+
+export async function getHistoryById (historyId: number) : Promise<History> {
+    const history = await db.history.findFirst({
+        where:{
+            id: historyId
+        },
+        select:{
+            id: true,
+            user_id: true,
+            alamat_tujuan: true,
+            id_penerima: true,
+            nama_penerima: true,
+            biaya_pengiriman: true,
+            rating: true
+        }
+    })
+
+    if(history === null) {
+        throw "error";
+    }
+
+    return history;
 }

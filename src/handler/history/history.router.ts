@@ -23,3 +23,13 @@ HistoryRouter.get('/detail/:id', async (request: Request, response: Response) =>
         return response.status(500).json(error.message);
     }
 })
+
+HistoryRouter.get('/history/:id', async (request: Request, response: Response) => {
+    const id: number = parseInt(request.params.id, 10);
+    try {
+        const history = await HistoryServices.getHistoryById(id);
+        return response.status(200).json(history);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
