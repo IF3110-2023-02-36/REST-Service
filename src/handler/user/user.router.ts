@@ -77,3 +77,12 @@ UserRouter.get('/user-detail/:username', async (request: Request, response: Resp
         return response.status(500).json(error.message);
     }
 })
+
+UserRouter.put('/user-detail/:username', async (request: Request, response: Response) => {
+    try {
+        const responseString = await UserServices.editUserByUsername(request.params.username, request.body);
+        return response.status(200).json(responseString);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})

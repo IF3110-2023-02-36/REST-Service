@@ -1,5 +1,6 @@
 import express, {Express, Request, Response} from "express";
 import { HistoryRouter } from "./handler/history/history.router";
+import { OrderRouter } from "./handler/order/order.router";
 import { UserRouter } from "./handler/user/user.router";
 import cors from "cors";
 
@@ -15,6 +16,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/history', HistoryRouter);
+app.use('/order', OrderRouter);
 app.use('/user', UserRouter);
 
 app.listen(port, () =>{

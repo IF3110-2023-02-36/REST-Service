@@ -119,3 +119,34 @@ export async function getUserByUsername(username : string) {
 
     return userDetail;
 }
+
+export async function editUserByUsername(username : string, newUserDetail : UserDetail) {
+    let responseString = "";
+    const oldUserData = await getUserByUsername(username);
+    const emailAvailable = await checkEmail(newUserDetail.email);
+
+    if((emailAvailable === "exist") && !(oldUserData.email === newUserDetail.email)) {
+        responseString = "email already exist";
+    }
+    
+    if(responseString !== "") {
+        return responseString;   
+    }
+
+    try {
+        const result : User = await db.user.update({
+            where: {
+                username : username
+            },
+            data: {
+                name : newUserDetail.name,
+                email : newUserDetail.email,
+            }
+        })
+        responseString = "success";
+    }catch (err) {
+        responseString = "failed";
+    }
+    console.log(responseString);
+    return responseString;
+}
