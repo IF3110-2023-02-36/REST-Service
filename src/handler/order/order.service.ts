@@ -1,18 +1,23 @@
-import { getPesananNoKurir } from "../soap-caller/PesananSoapCaller";
+import { getPesananByIdPesanan, getPesananNoKurir } from "../soap-caller/PesananSoapCaller";
 import OrderInterface from "../../interfaces/OrderInterface";
+import { getDetailPesanan } from "../soap-caller/DetailPesananSoapCaller";
+import OrderDetail from "../../interfaces/OrderDetail";
+import { ConvertArray, ConvertSingle } from "../../utils/JSONConverter";
 
 export async function getAvailableOrder() {
     const response = await getPesananNoKurir();
-    console.log(response);
-    if(response === null) {
-        return [];
-    }
-
-    const JSONArray = Array.isArray(response) ? response : [response];
-
-    const availableOrder = JSONArray.map((item: any) => {
-        return JSON.parse(JSON.stringify(item)) as OrderInterface;
-    });
-
+    const availableOrder = ConvertArray<OrderInterface>(response);
     return availableOrder;
+}
+
+export async function getOrderById(orderId : number) {
+    const response = await getPesananByIdPesanan(orderId);
+    const order = ConvertSingle(response);
+    return order;
+}
+
+export async function getOrderDetails(orderId : number) {
+    const response = await getDetailPesanan(orderId);
+    const orderDetails = ConvertArray<OrderDetail>(response);
+    return orderDetails;
 }

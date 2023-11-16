@@ -1,7 +1,7 @@
 
 export default interface OrderDetail {    
     id_pesanan : number
-    nama_produk : string
+    nama_product : string
     quantity : number
     harga : number
 }

@@ -13,3 +13,20 @@ OrderRouter.get('/available-order', async (request: Request, response: Response)
         return response.status(500).json(error.message);
     }
 })
+OrderRouter.get('/order/:id', async (request: Request, response: Response) => {
+    try {
+        const order = await OrderServices.getOrderById(parseInt(request.params.id));
+        return response.status(200).json(order);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
+
+OrderRouter.get('/order-details/:id', async (request: Request, response: Response) => {
+    try {
+        const orderDetails = await OrderServices.getOrderDetails(parseInt(request.params.id));
+        return response.status(200).json(orderDetails);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
