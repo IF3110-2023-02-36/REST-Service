@@ -58,3 +58,22 @@ export async function getHistoryById (historyId: number) : Promise<History> {
 
     return history;
 }
+
+export async function getHistoryByIdPenerima(idPenerima:number) : Promise<History[]>{
+    const history = await db.history.findMany({
+        where:{
+            id_penerima : idPenerima
+        },
+        select:{
+            id: true,
+            user_id: true,
+            alamat_tujuan: true,
+            id_penerima: true,
+            nama_penerima: true,
+            biaya_pengiriman: true,
+            rating: true
+        }
+    })
+    console.log(history)
+    return history;
+}

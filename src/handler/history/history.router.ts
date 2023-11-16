@@ -33,3 +33,15 @@ HistoryRouter.get('/history/:id', async (request: Request, response: Response) =
         return response.status(500).json(error.message);
     }
 })
+
+HistoryRouter.get('/penerima/:id', async (request: Request, response: Response) => {
+    const id: number = parseInt(request.params.id, 10);
+    console.log(id)
+    try {
+        const history = await HistoryServices.getHistoryByIdPenerima(id);
+        // console.log(history);/
+        return response.status(200).json(history);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
