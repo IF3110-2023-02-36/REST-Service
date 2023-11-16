@@ -1,12 +1,13 @@
 import { History } from "../../interfaces/History";
 import { HistoryDetail } from "../../interfaces/HistoryDetail";
 import {db} from "../../utils/db.server"
+import { getUserId } from "../../utils/getUserId";
 
-export async function getHistory () : Promise<History[]> {
-    const user_id = 2; //ini buat temp aja karena auth belom dibuat
+export async function getHistory (username : string) : Promise<History[]> {
+    const userId = await getUserId(username);
     return db.history.findMany({
         where:{
-            user_id : user_id,
+            user_id : userId,
         },
         select: {
             id: true,
