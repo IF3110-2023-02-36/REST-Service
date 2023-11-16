@@ -1,4 +1,4 @@
-import { getPesananByIdPesanan, getPesananNoKurir } from "../soap-caller/PesananSoapCaller";
+import { getPesananByIdPesanan, getPesananByKurir, getPesananNoKurir } from "../soap-caller/PesananSoapCaller";
 import OrderInterface from "../../interfaces/OrderInterface";
 import { getDetailPesanan } from "../soap-caller/DetailPesananSoapCaller";
 import OrderDetail from "../../interfaces/OrderDetail";
@@ -18,6 +18,12 @@ export async function getOrderById(orderId : number) {
 
 export async function getOrderDetails(orderId : number) {
     const response = await getDetailPesanan(orderId);
+    const orderDetails = ConvertArray<OrderDetail>(response);
+    return orderDetails;
+}
+
+export async function getOrderByCourier(courierId : number) {
+    const response = await getPesananByKurir(courierId);
     const orderDetails = ConvertArray<OrderDetail>(response);
     return orderDetails;
 }

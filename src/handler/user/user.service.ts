@@ -106,6 +106,7 @@ export async function getUserByUsername(username : string) {
             username : username,
         },
         select: {
+            id : true,
             username : true,
             name : true,
             email : true,
