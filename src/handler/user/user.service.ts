@@ -1,4 +1,5 @@
 import { User } from "../../interfaces/User";
+import { UserDetail } from "../../interfaces/UserDetail";
 import {db} from "../../utils/db.server"
 
 type queryResult = User | null;
@@ -97,4 +98,24 @@ export async function topup(username : string, topupBalance : number) {
         responseString = "failed";
     }
     return responseString;
+}
+
+export async function getUserByUsername(username : string) {
+    const userDetail : UserDetail | null = await db.user.findFirst({
+        where:{
+            username : username,
+        },
+        select: {
+            username : true,
+            name : true,
+            email : true,
+            saldo : true
+        }
+    })
+
+    if(userDetail === null) {
+        throw "error";
+    }
+
+    return userDetail;
 }

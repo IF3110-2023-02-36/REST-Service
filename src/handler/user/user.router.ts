@@ -68,3 +68,12 @@ UserRouter.post('/balance', async (request: Request, response: Response) => {
         return response.status(500).json(error.message);
     }
 })
+
+UserRouter.get('/user-detail/:username', async (request: Request, response: Response) => {
+    try {
+        const userData = await UserServices.getUserByUsername(request.params.username);
+        return response.status(200).json(userData);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
