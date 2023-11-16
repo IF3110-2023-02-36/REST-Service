@@ -8,6 +8,7 @@ export default interface OrderInterface {
     id_kurir : number
     id_pemesan : number
     keterangan : string
+    nama_kurir : string
     nama_penerima : string
     status : OrderStatus
 }

@@ -44,10 +44,11 @@ export async function addPesanan(idPemesan : number,
     return await SoapApiCall(PESANAN_URL, "addPesanan", args);
 }
 
-export async function ambilPesanan(id_pesanan : number, id_kurir : number) {
+export async function ambilPesanan(id_pesanan : number, id_kurir : number, nama_kurir : string) {
     const args = {
         arg0 : id_pesanan,
         arg1 : id_kurir,
+        arg2 : nama_kurir,
     };
   
     return await SoapApiCall(PESANAN_URL, "ambilPesanan", args);
