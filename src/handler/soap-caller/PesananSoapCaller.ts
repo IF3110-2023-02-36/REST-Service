@@ -9,6 +9,15 @@ export async function getPesananByKurir(id_kurir : number) {
     return await SoapApiCall(PESANAN_URL, "getPesananByKurir", args);
 }
 
+export async function getPesananByIdPesanan(id_pesanan : number) {
+    const args = {
+        arg0 : id_pesanan,
+    };
+  
+    return await SoapApiCall(PESANAN_URL, "getPesananByIdPesanan", args);
+}
+
+
 export async function getPesananNoKurir() {
     return await SoapApiCall(PESANAN_URL, "getPesananNoKurir");
 }
@@ -53,4 +62,12 @@ export async function updatePesanan(id_pesanan : number, id_kurir : number, stat
     };
   
     return await SoapApiCall(PESANAN_URL, "updatePesanan", args);
+}
+
+export async function getPesananByIdUser(userId : number) {
+    const args = {
+        arg0 : userId,
+    };
+  
+    return await SoapApiCall(PESANAN_URL, "getPesananByIdUser", args);
 }
