@@ -13,7 +13,7 @@ type Header = {
 export async function SoapApiCall(url : string, method : string, params? : Object) {
     const headers: Header = {
         'Content-Type': 'text/xml;charset=UTF-8',
-        SOAPAction: '#POST',
+        SOAPAction: '\"POST\"',
         'apiKey': REST_API_KEY
     };
 
