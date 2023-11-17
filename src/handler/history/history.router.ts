@@ -2,11 +2,15 @@ import express from "express";
 import type { Request, Response } from "express";
 
 import * as HistoryServices from './history.service'
+import { ValidationRequest, accessValidation } from "../middleware/middleware";
 
 export const HistoryRouter = express.Router()
 
-HistoryRouter.get('/:username', async (request: Request, response: Response) => {
+HistoryRouter.get('/', accessValidation, async (request: Request, response: Response) => {
     try {
+        const validationRequest = request as ValidationRequest;
+        const { authorization } = validationRequest.headers;
+        console.log(authorization)
         const history = await HistoryServices.getHistory(request.params.username);
         return response.status(200).json(history);
     } catch (error: any) {

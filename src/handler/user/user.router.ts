@@ -43,7 +43,7 @@ UserRouter.post('/register', async (request: Request, response: Response) => {
 
 UserRouter.post('/login', async (request: Request, response: Response) => {
     try {
-        const responseString = await UserServices.login(request.body.username, request.body.password);
+        const responseString= await UserServices.login(request.body.username, request.body.password);
         return response.status(200).json(responseString);
     } catch (error: any) {
         return response.status(500).json(error.message);

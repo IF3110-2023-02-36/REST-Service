@@ -1,4 +1,6 @@
-import express, {Express, Request, Response} from "express";
+import express, {Express, NextFunction, Request, Response} from "express";
+import jwt, { JwtPayload } from 'jsonwebtoken';
+
 import { HistoryRouter } from "./handler/history/history.router";
 import { OrderRouter } from "./handler/order/order.router";
 import { UserRouter } from "./handler/user/user.router";
@@ -9,9 +11,12 @@ const port = 5000;
 
 app.use(express.json());
 app.use(cors());
+
+
+
 // logger
 app.use((req, res, next) => {
-    console.log(`${req.method} ${req.url}`); 
+    
     next(); 
 });
 

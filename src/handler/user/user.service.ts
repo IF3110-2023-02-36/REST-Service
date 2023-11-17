@@ -2,6 +2,8 @@ import { User } from "../../interfaces/User";
 import { UserDetail } from "../../interfaces/UserDetail";
 import {db} from "../../utils/db.server"
 
+import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
+
 type queryResult = User | null;
 
 export async function checkUsername(username : string) {
@@ -61,9 +63,29 @@ export async function login(username : string, password : string) {
         where: {
             username : username
         }
-    });
-    const responseString = (password === result?.password) ? "success" : "failed";
-    return responseString;
+    })
+
+    if(result === null){
+        const responseString = "username tidak ditemukan";
+        return responseString;
+    }
+    if(result.password != password){
+        const responseString = "password salah";
+        return responseString;
+    }
+
+    const payLoad = {
+        id: result.id,
+        name: result.name,
+        username: result.username,
+    }
+
+    const Secret = process.env.JWT_SECRET!;
+
+    const expiresIn = 60*60*24; 
+    const token = jwt.sign(payLoad, Secret, {expiresIn: expiresIn})
+    return token;
+    
 }
 
 export async function getBalance(username : string) {
