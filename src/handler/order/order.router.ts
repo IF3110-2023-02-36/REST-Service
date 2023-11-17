@@ -23,6 +23,19 @@ OrderRouter.get('/order/:id', async (request: Request, response: Response) => {
     }
 })
 
+OrderRouter.put('/order/:id', async (request: Request, response: Response) => {
+    try {
+        const orderId = parseInt(request.params.id);
+        const username = request.body.username;
+        const status = request.body.status;
+        const description = request.body.description;
+        const res = await OrderServices.updateOrder(orderId, username, status, description);
+        return response.status(200).json(res);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
+
 OrderRouter.get('/order-details/:id', async (request: Request, response: Response) => {
     try {
         const orderDetails = await OrderServices.getOrderDetails(parseInt(request.params.id));
