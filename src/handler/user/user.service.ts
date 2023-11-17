@@ -51,11 +51,22 @@ export async function register(user : User) {
                 password : user.password,
             }
         })
-        responseString = "success";
+        const payLoad = {
+            id: result.id,
+            name: result.name,
+            username: result.username,
+        }
+    
+        const Secret = process.env.JWT_SECRET!;
+    
+        const expiresIn = 60*60*24; 
+        const token = jwt.sign(payLoad, Secret, {expiresIn: expiresIn})
+        return token;
     }catch (err) {
         responseString = "failed";
+        return responseString;
     }
-    return responseString;
+    
 }
 
 export async function login(username : string, password : string) {
