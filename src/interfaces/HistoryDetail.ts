@@ -1,6 +1,6 @@
 
 export interface HistoryDetail {
-    id: number
+    id ?: number
     history_id : number
     product_name: string
     quantity: number

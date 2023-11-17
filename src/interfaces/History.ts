@@ -1,6 +1,6 @@
 
 export interface History {
-    id: number
+    id?: number
     user_id : number
     alamat_tujuan : string
     id_penerima : number

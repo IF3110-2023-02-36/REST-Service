@@ -64,3 +64,14 @@ OrderRouter.put('/pick-order', async (request: Request, response: Response) => {
         return response.status(500).json(error.message);
     }
 })
+
+OrderRouter.put('/finish-order', async (request: Request, response: Response) => {
+    try {
+        const orderId : number = request.body.orderId;
+        const username : string = request.body.username;
+        const res = await OrderServices.finishOrder(orderId, username);
+        return response.status(200).json(res);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
