@@ -45,3 +45,17 @@ HistoryRouter.get('/penerima/:id', async (request: Request, response: Response) 
         return response.status(500).json(error.message);
     }
 })
+
+HistoryRouter.put('/rating/:id', async (request: Request, response: Response) => {
+    const id: number = parseInt(request.params.id, 10);
+    const rating  = request.body.rating;
+    console.log(request.body);
+    console.log(id)
+    console.log(rating);
+    try {
+        const history = await HistoryServices.updateRating(id, rating);
+        return response.status(200).json("success");
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})

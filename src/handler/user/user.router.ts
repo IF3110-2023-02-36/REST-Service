@@ -86,3 +86,14 @@ UserRouter.put('/user-detail/:username', async (request: Request, response: Resp
         return response.status(500).json(error.message);
     }
 })
+
+UserRouter.get('/user-details/id/:id', async (request: Request, response: Response) => {
+    console.log("tes2")    
+    try {
+        const id: number = parseInt(request.params.id, 10);
+        const responseString = await UserServices.getUserById(id);
+        return response.status(200).json(responseString);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})

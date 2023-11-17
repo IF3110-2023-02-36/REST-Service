@@ -77,3 +77,18 @@ export async function getHistoryByIdPenerima(idPenerima:number) : Promise<Histor
     console.log(history)
     return history;
 }
+
+export async function updateRating(idHistory:number, rating:number){
+    try {
+        await db.history.update({
+            where: {
+                id: idHistory,
+            },
+            data: {
+                rating: rating,
+            },
+        });
+    } catch (error) {
+        throw error; // Optionally, rethrow the error for the calling code to handle
+    }
+}

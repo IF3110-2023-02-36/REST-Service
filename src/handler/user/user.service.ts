@@ -151,3 +151,22 @@ export async function editUserByUsername(username : string, newUserDetail : User
     console.log(responseString);
     return responseString;
 }
+
+export async function getUserById(userId: number) {
+    console.log("Test1")
+    const userDetail : UserDetail | null = await db.user.findFirst({
+        where:{
+            id : userId,
+        },
+        select: {
+            username : true,
+            name : true,
+            email : true,
+            saldo : true
+        }
+    })
+
+    console.log("Test1")
+
+    return userDetail;
+}
