@@ -1,8 +1,9 @@
-import { getPesananByIdPesanan, getPesananByKurir, getPesananNoKurir } from "../soap-caller/PesananSoapCaller";
+import { ambilPesanan, getPesananByIdPesanan, getPesananByKurir, getPesananNoKurir, updatePesanan } from "../soap-caller/PesananSoapCaller";
 import OrderInterface from "../../interfaces/OrderInterface";
 import { getDetailPesanan } from "../soap-caller/DetailPesananSoapCaller";
 import OrderDetail from "../../interfaces/OrderDetail";
 import { ConvertArray, ConvertSingle } from "../../utils/JSONConverter";
+import { getUserId } from "../../utils/getUserId";
 
 export async function getAvailableOrder() {
     const response = await getPesananNoKurir();
@@ -27,3 +28,16 @@ export async function getOrderByCourier(courierId : number) {
     const orderDetails = ConvertArray<OrderDetail>(response);
     return orderDetails;
 }
+
+export async function pickOrder(orderId : number, username : string) {
+    const courierId = await getUserId(username);
+    const response = await ambilPesanan(orderId, courierId, username);
+    return response;
+}
+
+export async function updateOrder(orderId : number, username : string, status : string, description : string) {
+    const courierId = await getUserId(username);
+    const response = await updatePesanan(orderId, courierId, status, description);
+    return response;
+}
+

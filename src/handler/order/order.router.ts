@@ -23,6 +23,19 @@ OrderRouter.get('/order/:id', async (request: Request, response: Response) => {
     }
 })
 
+OrderRouter.put('/order/:id', async (request: Request, response: Response) => {
+    try {
+        const orderId = parseInt(request.params.id);
+        const username = request.body.username;
+        const status = request.body.status;
+        const description = request.body.description;
+        const res = await OrderServices.updateOrder(orderId, username, status, description);
+        return response.status(200).json(res);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
+
 OrderRouter.get('/order-details/:id', async (request: Request, response: Response) => {
     try {
         const orderDetails = await OrderServices.getOrderDetails(parseInt(request.params.id));
@@ -36,6 +49,17 @@ OrderRouter.get('/order-courier/:id', async (request: Request, response: Respons
     try {
         const orders = await OrderServices.getOrderByCourier(parseInt(request.params.id));
         return response.status(200).json(orders);
+    } catch (error: any) {
+        return response.status(500).json(error.message);
+    }
+})
+
+OrderRouter.put('/pick-order', async (request: Request, response: Response) => {
+    try {
+        const orderId : number = request.body.orderId;
+        const username : string = request.body.username;
+        const res = await OrderServices.pickOrder(orderId, username);
+        return response.status(200).json(res);
     } catch (error: any) {
         return response.status(500).json(error.message);
     }
