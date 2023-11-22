@@ -3,3 +3,4 @@ dist/
 .env
 mysql
 prisma/migrations/
+__pycache__
